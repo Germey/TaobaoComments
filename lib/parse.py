@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from pyquery import PyQuery as pq
-from writetofile import write_to_file
+
+from lib.writetofile import write_to_file
 from getproduct import get_product
+
 
 def parse_content(html):
 
@@ -19,7 +21,7 @@ def parse_content(html):
             if not '***' in text:
                 result = text + str(' ') + url + str(' ') + title
                 print result
-                write_to_file('result.txt', result)
+                write_to_file(result)
 
 def parse_url(url):
     if not url.startswith('http'):

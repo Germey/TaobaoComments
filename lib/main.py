@@ -2,20 +2,22 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+
 from selenium.webdriver.support.ui import WebDriverWait
+
 from selenium.webdriver.support import expected_conditions as EC
+
+import config
 from getrecommends import get_recommends
 from parse import parse_content
-from geturls import get_urls
+from lib.geturls import get_urls
+
 
 def scrap(url):
-    timeout = 20
+    timeout = config.TIMEOUT
 
     print u'正在请求', url, u',请稍后...'
-    service_args = [
-        '--load-images=false',
-        '--disk-cache=true',
-    ]
+    service_args = config.SERVICE_ARGS
 
     driver = webdriver.PhantomJS(service_args=service_args)
     driver.get(url)
@@ -25,7 +27,7 @@ def scrap(url):
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )
 
-        result = get_recommends(driver, 10)
+        result = get_recommends(driver, config.MAX_TRY)
         if result:
             print u'查找成功'
             html = driver.page_source
@@ -33,11 +35,13 @@ def scrap(url):
         else:
             print u'请求超时,获取失败'
             driver.quit()
-
+            print u'正在重试...'
+            scrap(url)
     finally:
         driver.quit()
 
-def main():
+
+def from_file():
     urls = get_urls()
     print u'获取到如下链接列表'
     print urls
@@ -45,7 +49,12 @@ def main():
         scrap(url)
 
 
-if __name__ == "__main__":
-    main()
+def from_input():
+    url = raw_input('请输入宝贝链接:')
+    scrap(url)
+
+
+
+
 
 

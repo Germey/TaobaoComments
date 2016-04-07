@@ -2,10 +2,13 @@
 
 import re
 
+import config
+
+
 def get_urls():
 
     # read file
-    file = open('urls.txt', 'r')
+    file = open(config.FROM_FILE, 'r')
     content = file.read()
 
     # extract urls from txt

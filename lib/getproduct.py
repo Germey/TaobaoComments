@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
-
 from selenium import webdriver
 from pyquery import PyQuery as pq
+import config
 
 
 def get_product(url):
 
-    service_args = [
-        '--load-images=false',
-        '--disk-cache=true',
-    ]
+    service_args = config.SERVICE_ARGS
 
     driver = webdriver.PhantomJS(service_args=service_args)
     driver.get(url)

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-def write_to_file(file_name, content):
+import config
+
+
+def write_to_file(content):
     content = content.encode('utf-8', 'ignore')
-    with open(file_name, 'a') as f:
+    with open(config.TO_FILE, 'a') as f:
         f.write(content)
         f.write('\n')
         f.close()
