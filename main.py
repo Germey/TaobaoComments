@@ -16,7 +16,7 @@ service_args = [
     '--disk-cache=true',
 ]
 
-driver = webdriver.Chrome()
+driver = webdriver.PhantomJS(service_args=service_args)
 response = driver.get(url)
 
 try:
