@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,7 +27,6 @@ def scrap(url):
         WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )
-
         result = get_recommends(driver, config.MAX_TRY)
         if result:
             print u'查找成功'
@@ -35,8 +35,11 @@ def scrap(url):
         else:
             print u'请求超时,获取失败'
             driver.quit()
-            print u'正在重试...'
-            scrap(url)
+
+    except TimeoutException:
+        print u'请求超时, 继续重试'
+        scrap(url)
+
     finally:
         driver.quit()
 

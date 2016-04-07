@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from pyquery import PyQuery as pq
-
-from lib.writetofile import write_to_file
+import config
+from lib.writetofile import write_to_excel
+from lib.writetofile import write_to_txt
 from getproduct import get_product
 
 
 def parse_content(html):
-
     doc = pq(html)
     lis = doc('#J_TjWaterfall > li')
     print u'在此宝贝推荐链接中找到如下用户评论:'
@@ -19,9 +19,16 @@ def parse_content(html):
         for p in ps:
             text = p.text()
             if not '***' in text:
-                result = text + str(' ') + url + str(' ') + title
-                print result
-                write_to_file(result)
+                name = p.find('b').text()
+                comment = text.replace(name, '')
+                print name, comment, url, title
+                write_content = [name, comment, url, title]
+                write_to_excel(write_content, config.TO_EXCEL_FILE)
+                write_to_txt(" ".join(write_content),config.TO_TXT_FILE)
+                write_to_txt(name, config.TO_WANG_FILE)
+
+
+
 
 def parse_url(url):
     if not url.startswith('http'):
