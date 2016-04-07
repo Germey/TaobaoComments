@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import time
-from pyquery import PyQuery as pq
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from getrecommends import get_recommends
+from parse import parse_content
 
 times = []
 timeout = 20
@@ -25,18 +25,15 @@ try:
     )
 
     result = get_recommends(driver, 10)
-    print result
+    if result:
+        print u'查找成功'
+        html = driver.page_source
+        parse_content(html)
+    else:
+        print u'请求超时,获取失败'
+        driver.quit()
 
-    html = driver.page_source
-    print html
 
 
-    doc = pq(html)
-    lis = doc('#J_TjWaterfall > li')
-    for li in lis.items():
-        url = li.find('a').attr('href')
-        ps = li.find('p').items()
-        for p in ps:
-            print p.text()
 finally:
     driver.quit()

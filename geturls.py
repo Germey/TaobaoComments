@@ -13,5 +13,3 @@ def get_urls():
     urls = re.findall(pattern, content)
     print urls
     return urls
-
-get_urls()
