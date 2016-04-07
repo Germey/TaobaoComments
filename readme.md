@@ -46,6 +46,16 @@
   pip install selenium
   ```
 
+#### xlr
+
+* 安装
+
+  ```
+  pip install xlrd
+  pip install xlwt
+  pip install xlutils
+  ```
+
 ## 运行测试
 
 进入项目
