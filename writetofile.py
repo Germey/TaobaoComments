@@ -6,3 +6,4 @@ def write_to_file(file_name, content):
         f.write(content)
         f.write('\n')
         f.close()
+        print u'写入文件成功'

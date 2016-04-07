@@ -11,5 +11,4 @@ def get_urls():
     # extract urls from txt
     pattern = re.compile(r'(http.*?)\s', re.S)
     urls = re.findall(pattern, content)
-    print urls
     return urls

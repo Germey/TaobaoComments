@@ -8,7 +8,7 @@ def parse_content(html):
 
     doc = pq(html)
     lis = doc('#J_TjWaterfall > li')
-    print lis.items()
+    print u'在此宝贝推荐链接中找到如下用户评论:'
     for li in lis.items():
         url = li.find('a').attr('href')
         url = parse_url(url)
@@ -20,7 +20,6 @@ def parse_content(html):
                 result = text + str(' ') + url + str(' ') + title
                 print result
                 write_to_file('result.txt', result)
-
 
 def parse_url(url):
     if not url.startswith('http'):

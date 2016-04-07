@@ -10,7 +10,6 @@ def get_recommends(driver, max_time = 10):
     while not result:
         result = try_get(driver)
         count = count + 1
-        print 'count', count
         if count == max_time:
             return False
     return True
