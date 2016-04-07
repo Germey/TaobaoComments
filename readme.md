@@ -46,7 +46,7 @@
   pip install selenium
   ```
 
-#### xlr
+#### xlutils
 
 * 安装
 
