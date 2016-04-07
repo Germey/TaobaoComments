@@ -15,3 +15,5 @@ SERVICE_ARGS = [
     '--disk-cache=true',
 ]
 
+# 输出额外信息
+CONSOLE_OUTPUT = False

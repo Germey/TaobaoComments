@@ -9,4 +9,5 @@ def write_to_file(content):
         f.write(content)
         f.write('\n')
         f.close()
-        print u'写入文件成功'
+        if config.CONSOLE_OUTPUT:
+            print u'写入文件成功'
