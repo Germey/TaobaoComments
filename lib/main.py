@@ -43,7 +43,7 @@ def scrap(url, fail_time=0):
                 print u'失败次数过多, 跳过此请求'
             return False
         scrap(url, fail_time)
-    except socket.error:
+    except (socket.error, urllib2.URLError):
         print u'请求页面过于频繁, 请求被中断, 正在切换会话重试'
         new_driver()
         fail_time = fail_time + 1
@@ -54,24 +54,8 @@ def scrap(url, fail_time=0):
                 print u'失败次数过多, 跳过此请求'
             return False
         scrap(url, fail_time)
-    except urllib2.URLError:
-        print u'请求页面过于频繁, 发生网络错误, 正在切换会话重试'
-        new_driver()
-        fail_time = fail_time + 1
-        if config.CONSOLE_OUTPUT:
-            print u'当前页面请求失败数', fail_time
-        if fail_time == config.MAX_FAIL:
-            if config.CONSOLE_OUTPUT:
-                print u'失败次数过多, 跳过此请求'
-            return False
-        scrap(url, fail_time)
-    except WindowsError:
+    except (WindowsError, OSError, Exception):
         print u'未知错误, 跳过继续运行'
-    except OSError:
-        print u'未知错误, 跳过继续运行'
-    except Exception:
-        print u'未知错误'
-
 
 
 def from_file():
