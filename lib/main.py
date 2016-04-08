@@ -40,7 +40,6 @@ def scrap(url):
         scrap(url)
     except Exception:
         print u'未知错误, 继续重试'
-        scrap(url)
 
     finally:
         driver.quit()
