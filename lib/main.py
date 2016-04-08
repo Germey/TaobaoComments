@@ -19,7 +19,7 @@ from lib.geturls import get_urls
 def scrap(url):
     timeout = config.TIMEOUT
 
-    print u'正在请求', url, u',请稍后...'
+    print u'正在请求', url, u', 请稍后...'
     
     try:
         driver = config.DRIVER
@@ -33,16 +33,17 @@ def scrap(url):
             html = driver.page_source
             parse_content(html)
         else:
-            print u'请求超时,获取失败'
+            print u'请求超时, 获取失败'
 
     except TimeoutException:
         print u'请求超时, 继续重试'
         scrap(url)
     except socket.error:
-        print u'获取宝贝名称失败, 请求过于频繁, 正在重试'
+        print u'请求页面过于频繁, 请求被中断, 正在切换会话重试'
+        config.DRIVER = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
         scrap(url)
     except urllib2.URLError:
-        print u'请求过于频繁，正在切换会话重试'
+        print u'请求页面过于频繁, 发生网络错误, 正在切换会话重试'
         config.DRIVER = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
         scrap(url)
     except WindowsError:
