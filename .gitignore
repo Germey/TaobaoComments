@@ -5,3 +5,4 @@
 !/file/urls.txt
 ghostdriver.log
 /data
+/proxy/ghostdriver.log

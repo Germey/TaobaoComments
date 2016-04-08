@@ -33,7 +33,7 @@ def scrap(url):
             print u'请求超时, 获取失败'
 
     except TimeoutException:
-        print u'请求超时, 继续重试, 正在切换代理'
+        print u'请求超时, 正在切换代理, 继续重试'
         new_proxy_driver()
         scrap(url)
     except socket.error:
