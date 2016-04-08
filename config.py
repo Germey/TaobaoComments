@@ -26,7 +26,7 @@ TO_WANG_FILE = 'file/wangwang.txt'
 PROXY_POOL = 'proxy/proxy.txt'
 
 # 最大失败次数
-MAX_FAIL = 5
+MAX_FAIL = 7
 
 # 输出额外信息
 CONSOLE_OUTPUT = True

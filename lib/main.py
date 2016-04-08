@@ -33,7 +33,7 @@ def scrap(url, fail_time=0):
             print u'请求超时, 获取失败, 此页面不存在相应内容'
 
     except TimeoutException:
-        if fail_time <= 3:
+        if fail_time <= 2:
             print u'请求超时, 正在切换会话, 继续重试'
             new_driver()
         else:
