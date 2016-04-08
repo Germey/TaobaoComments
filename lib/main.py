@@ -15,15 +15,13 @@ from parse import parse_content
 from lib.geturls import get_urls
 
 
-def scrap(url):
+def scrap(url, driver):
     timeout = config.TIMEOUT
 
     print u'正在请求', url, u',请稍后...'
-    service_args = config.SERVICE_ARGS
-    driver = webdriver.PhantomJS(service_args=service_args)
+    
     try:
         driver.get(url)
-
         WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )
@@ -31,33 +29,31 @@ def scrap(url):
         if result:
             print u'查找成功'
             html = driver.page_source
-            parse_content(html)
+            parse_content(html, driver)
         else:
             print u'请求超时,获取失败'
-            driver.quit()
 
     except TimeoutException:
         print u'请求超时, 继续重试'
         scrap(url)
-    except Exception, e:
-        print u'获取宝贝名称失败', e.message
+    
     except WindowsError:
         print u'未知错误, 跳过继续运行'
     except OSError:
         print u'未知错误, 跳过继续运行'
 
-    finally:
-        driver.quit()
 
 
 def from_file():
+    driver = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
     urls = get_urls()
     print u'获取到如下链接列表'
     print urls
     for url in urls:
-        scrap(url)
+        scrap(url, driver)
 
 
 def from_input():
     url = raw_input('请输入宝贝链接:')
-    scrap(url)
+    driver = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
+    scrap(url, driver)
