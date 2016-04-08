@@ -19,8 +19,12 @@ def get_product(url, fail_time=0):
         title = doc('title').text()
         return title
     except TimeoutException:
-        print u'请求超时, 正在切换代理, 继续重试'
-        new_proxy_driver()
+        if fail_time <= 3:
+            print u'请求超时, 正在切换会话, 继续重试'
+            new_driver()
+        else:
+            print u'请求超时, 正在切换代理, 继续重试'
+            new_proxy_driver()
         fail_time = fail_time + 1
         if config.CONSOLE_OUTPUT:
             print u'当前失败次数', fail_time
