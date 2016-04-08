@@ -2,3 +2,5 @@
 *.pyc
 /file/*.txt
 /file/*.xls
+ghostdriver.log
+/data

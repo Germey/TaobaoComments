@@ -39,7 +39,8 @@ def scrap(url):
         print u'请求超时, 继续重试'
         scrap(url)
     except Exception:
-        print u'未知错误,跳过继续运行'
+        print u'未知错误, 继续重试'
+        scrap(url)
 
     finally:
         driver.quit()
