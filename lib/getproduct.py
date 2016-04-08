@@ -11,7 +11,7 @@ from lib.newdriver import new_proxy_driver, new_driver
 
 def get_product(url, fail_time=0):
     try:
-        time.sleep(0.5)
+        #time.sleep(0.5)
         driver = config.DRIVER
         driver.get(url)
         html = driver.page_source

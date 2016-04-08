@@ -11,7 +11,7 @@ SERVICE_ARGS = [
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
-TIMEOUT = 50
+TIMEOUT = 20
 # 加载重试次数
 MAX_TRY = 6
 # 读取的URL文件
