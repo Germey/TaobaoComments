@@ -4,6 +4,7 @@ from multiprocessing import Pool
 from selenium import webdriver
 import requests
 import re
+import os
 
 service_args = [
     '--load-images=false',
@@ -16,7 +17,7 @@ test_url = 'http://www.baidu.com'
 
 validate_proxies = []
 
-file = 'proxy.txt'
+file = 'proxy/proxy.txt'
 
 
 def get_html():
@@ -93,3 +94,7 @@ def update_proxy():
     html = get_html()
     proxies = get_proxy_list(html)
     validate_proxy(proxies)
+
+
+
+
