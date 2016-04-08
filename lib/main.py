@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
-
-from selenium import webdriver
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.by import By
-
-from selenium.webdriver.support.ui import WebDriverWait
-
-from selenium.webdriver.support import expected_conditions as EC
-from twisted.python.win32 import WindowsError
 import socket
 import urllib2
 import config
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from twisted.python.win32 import WindowsError
 from getrecommends import get_recommends
+from lib.newdriver import new_driver, new_proxy_driver
 from parse import parse_content
 from lib.geturls import get_urls
 
@@ -20,7 +17,7 @@ def scrap(url):
     timeout = config.TIMEOUT
 
     print u'正在请求', url, u', 请稍后...'
-    
+
     try:
         driver = config.DRIVER
         driver.get(url)
@@ -36,21 +33,21 @@ def scrap(url):
             print u'请求超时, 获取失败'
 
     except TimeoutException:
-        print u'请求超时, 继续重试'
+        print u'请求超时, 继续重试, 正在切换代理'
+        new_proxy_driver()
         scrap(url)
     except socket.error:
         print u'请求页面过于频繁, 请求被中断, 正在切换会话重试'
-        config.DRIVER = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
+        new_driver()
         scrap(url)
     except urllib2.URLError:
         print u'请求页面过于频繁, 发生网络错误, 正在切换会话重试'
-        config.DRIVER = webdriver.PhantomJS(service_args=config.SERVICE_ARGS)
+        new_driver()
         scrap(url)
     except WindowsError:
         print u'未知错误, 跳过继续运行'
     except OSError:
         print u'未知错误, 跳过继续运行'
-
 
 
 def from_file():

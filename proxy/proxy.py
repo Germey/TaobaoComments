@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from requests.exceptions import ConnectTimeout, ConnectionError
-
+from requests.exceptions import ConnectTimeout, ConnectionError, ChunkedEncodingError, ReadTimeout
+from multiprocessing import Pool
 from selenium import webdriver
 import requests
 import re
@@ -36,12 +36,12 @@ def get_proxy_list(html):
     return proxies
 
 
-def check_proxy(proxy):
+def test_proxy(proxy):
     try:
-        proxy = {
+        proxies = {
             'http': 'http://' + proxy
         }
-        response = requests.get(test_url, proxies=proxy, timeout=10)
+        response = requests.get(test_url, proxies=proxies, timeout=10)
         if response:
             return True
         else:
@@ -52,18 +52,30 @@ def check_proxy(proxy):
     except ConnectionError:
         print u'超时,代理无效', proxy
         return False
+    except ChunkedEncodingError:
+        print u'发生错误,代理无效', proxy
+        return False
+    except ReadTimeout:
+        print u'发生错误,代理无效', proxy
+        return False
+    except Exception:
+        return False
+
+
+def check_proxy(proxy):
+    print '----------', proxy
+    if test_proxy(proxy):
+        print u'代理有效', proxy
+        validate_proxies.append(proxy)
+        write_to_file(proxy)
+    else:
+        print u'代理无效'
 
 
 def validate_proxy(proxies):
     clear_file()
-    for proxy in proxies:
-        print u'正在测试', proxy
-        if check_proxy(proxy):
-            print u'代理有效'
-            validate_proxies.append(proxy)
-            write_to_file(proxy)
-        else:
-            print u'代理无效'
+    pool = Pool()
+    pool.map(check_proxy, proxies)
 
 
 def write_to_file(proxy):
