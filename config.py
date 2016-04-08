@@ -6,13 +6,16 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--disk-cache=true',
+    #'--ignore-ssl-errors=true',
+    '--proxy=202.106.16.36:3128'
 ]
+
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
-TIMEOUT = 30
+TIMEOUT = 50
 # 加载重试次数
-MAX_TRY = 10
+MAX_TRY = 15
 # 读取的URL文件
 FROM_FILE = 'file/urls.txt'
 # 写入的文件
