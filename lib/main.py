@@ -32,11 +32,11 @@ def scrap(url):
             print u'查找成功'
             html = driver.page_source
             parse_content(html)
-            driver.quit()
+
         else:
             print u'请求超时,获取失败'
-            driver.quit()
 
+        driver.quit()
     except TimeoutException:
         print u'请求超时, 继续重试'
         scrap(url)
@@ -46,6 +46,9 @@ def scrap(url):
         print u'Windows平台未知错误, 跳过继续运行'
     except OSError:
         print u'系统平台未知错误, 跳过继续运行'
+
+    finally:
+        driver.quit()
 
 
 def from_file():

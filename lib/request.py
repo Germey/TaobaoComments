@@ -13,3 +13,4 @@ driver.get(url)
 html = driver.page_source
 doc = pq(html)
 title = doc('title').text()
+driver.quit()

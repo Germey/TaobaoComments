@@ -15,6 +15,7 @@ def get_product(url):
         html = driver.page_source
         doc = pq(html)
         title = doc('title').text()
+        driver.quit()
         return title
     except Exception, e:
         print u'获取宝贝名称失败', e.message
