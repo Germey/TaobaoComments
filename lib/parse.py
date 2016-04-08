@@ -24,8 +24,8 @@ def parse_content(html):
                 print name, comment, url, title
                 write_content = [name, comment, url, title]
                 write_to_excel(write_content, config.TO_EXCEL_FILE)
-                write_to_txt(" ".join(write_content),config.TO_TXT_FILE)
-                write_to_txt(name, config.TO_WANG_FILE)
+                write_to_txt(" ".join(write_content),config.TO_TXT_FILE, name)
+                write_to_txt(name, config.TO_WANG_FILE, name)
 
 
 

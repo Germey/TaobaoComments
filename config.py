@@ -7,11 +7,11 @@ MAX_TRY = 10
 # 读取的URL文件
 FROM_FILE = 'file/urls.txt'
 # 写入的文件
-TO_TXT_FILE = 'file/result.txt'
+TO_TXT_FILE = 'file/result2.txt'
 # 写入的EXCEL文件
-TO_EXCEL_FILE = 'file/result.xls'
+TO_EXCEL_FILE = 'file/result2.xls'
 # 写入的旺旺名
-TO_WANG_FILE = 'file/wangwang.txt'
+TO_WANG_FILE = 'file/wangwang2.txt'
 # 加载配置
 SERVICE_ARGS = [
     '--load-images=false',
@@ -19,4 +19,4 @@ SERVICE_ARGS = [
 ]
 
 # 输出额外信息
-CONSOLE_OUTPUT = False
+CONSOLE_OUTPUT = True
