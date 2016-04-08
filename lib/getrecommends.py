@@ -16,7 +16,6 @@ def get_recommends(driver, max_time = 10):
 
 
 
-
 def try_get(driver):
     js = "window.scrollTo(0,document.body.scrollHeight)"
     driver.execute_script(js)

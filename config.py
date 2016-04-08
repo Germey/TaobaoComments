@@ -13,7 +13,7 @@ DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
 TIMEOUT = 50
 # 加载重试次数
-MAX_TRY = 15
+MAX_TRY = 6
 # 读取的URL文件
 FROM_FILE = 'file/urls.txt'
 # 写入的文件
@@ -24,6 +24,9 @@ TO_EXCEL_FILE = 'file/result.xls'
 TO_WANG_FILE = 'file/wangwang.txt'
 # 代理池路径
 PROXY_POOL = 'proxy/proxy.txt'
+
+# 最大失败次数
+MAX_FAIL = 5
 
 # 输出额外信息
 CONSOLE_OUTPUT = True

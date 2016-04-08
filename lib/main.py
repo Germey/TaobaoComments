@@ -14,6 +14,9 @@ from lib.geturls import get_urls
 
 
 def scrap(url):
+
+    fail_time = 0
+
     timeout = config.TIMEOUT
 
     print u'正在请求', url, u', 请稍后...'
@@ -30,7 +33,7 @@ def scrap(url):
             html = driver.page_source
             parse_content(html)
         else:
-            print u'请求超时, 获取失败'
+            print u'请求超时, 获取失败, 此页面不存在相应内容'
 
     except TimeoutException:
         print u'请求超时, 正在切换代理, 继续重试'
@@ -48,6 +51,19 @@ def scrap(url):
         print u'未知错误, 跳过继续运行'
     except OSError:
         print u'未知错误, 跳过继续运行'
+
+    except Exception:
+        print u'未知错误'
+
+    finally:
+        fail_time = fail_time + 1
+        if config.CONSOLE_OUTPUT:
+            print u'当前页面请求失败数', fail_time
+            if fail_time == config.MAX_FAIL:
+                if config.CONSOLE_OUTPUT:
+                    print '失败次数过多, 跳过此请求'
+                return False
+
 
 
 def from_file():
