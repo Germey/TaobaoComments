@@ -42,16 +42,10 @@ def scrap(url):
         scrap(url)
     except Exception, e:
         print u'获取宝贝名称失败', e.message
-        driver.quit()
     except WindowsError:
-        print u'未知错误, 跳过继续运行'
-        driver.quit()
+        print u'Windows平台未知错误, 跳过继续运行'
     except OSError:
-        print u'未知错误, 跳过继续运行'
-        driver.quit()
-
-    finally:
-        driver.quit()
+        print u'系统平台未知错误, 跳过继续运行'
 
 
 def from_file():
@@ -62,11 +56,11 @@ def from_file():
         for url in urls:
             scrap(url)
     except WindowsError:
-        print u'未知错误, 继续运行'
+        print u'Windows平台错误,跳过继续运行'
     except OSError:
-        print u'未知错误, 跳过继续运行'
+        print u'系统平台错误,跳过继续运行'
     except Exception:
-        print u'未知错误, 继续运行'
+        print u'跳过继续运行'
 
 
 def from_input():
