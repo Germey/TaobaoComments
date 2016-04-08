@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from selenium.webdriver.support import expected_conditions as EC
+from twisted.python.win32 import WindowsError
 
 import config
 from getrecommends import get_recommends
@@ -38,8 +39,12 @@ def scrap(url):
     except TimeoutException:
         print u'请求超时, 继续重试'
         scrap(url)
-    except Exception:
-        print u'未知错误, 继续重试'
+    except Exception, e:
+        print u'获取宝贝名称失败', e.message
+    except WindowsError:
+        print u'未知错误, 跳过继续运行'
+    except OSError:
+        print u'未知错误, 跳过继续运行'
 
     finally:
         driver.quit()

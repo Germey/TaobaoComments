@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from pyquery import PyQuery as pq
+from twisted.python.win32 import WindowsError
 import config
 
 
@@ -17,3 +18,7 @@ def get_product(url):
         return title
     except Exception, e:
         print u'获取宝贝名称失败', e.message
+    except WindowsError:
+        print u'未知错误, 跳过继续运行'
+    except OSError:
+        print u'未知错误, 跳过继续运行'
