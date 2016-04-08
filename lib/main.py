@@ -32,6 +32,7 @@ def scrap(url):
             print u'查找成功'
             html = driver.page_source
             parse_content(html)
+            driver.quit()
         else:
             print u'请求超时,获取失败'
             driver.quit()
@@ -41,23 +42,40 @@ def scrap(url):
         scrap(url)
     except Exception, e:
         print u'获取宝贝名称失败', e.message
+        driver.quit()
     except WindowsError:
         print u'未知错误, 跳过继续运行'
+        driver.quit()
     except OSError:
         print u'未知错误, 跳过继续运行'
+        driver.quit()
 
     finally:
         driver.quit()
 
 
 def from_file():
-    urls = get_urls()
-    print u'获取到如下链接列表'
-    print urls
-    for url in urls:
-        scrap(url)
+    try:
+        urls = get_urls()
+        print u'获取到如下链接列表'
+        print urls
+        for url in urls:
+            scrap(url)
+    except WindowsError:
+        print u'未知错误, 继续运行'
+    except OSError:
+        print u'未知错误, 跳过继续运行'
+    except Exception:
+        print u'未知错误, 继续运行'
 
 
 def from_input():
-    url = raw_input('请输入宝贝链接:')
-    scrap(url)
+    try:
+        url = raw_input('请输入宝贝链接:')
+        scrap(url)
+    except WindowsError:
+        print u'未知错误, 继续运行'
+    except OSError:
+        print u'未知错误, 跳过继续运行'
+    except Exception:
+        print u'未知错误, 继续运行'
