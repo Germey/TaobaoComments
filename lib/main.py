@@ -19,11 +19,10 @@ def scrap(url):
 
     print u'正在请求', url, u',请稍后...'
     service_args = config.SERVICE_ARGS
-
     driver = webdriver.PhantomJS(service_args=service_args)
-    driver.get(url)
-
     try:
+        driver.get(url)
+
         WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )
@@ -57,9 +56,3 @@ def from_file():
 def from_input():
     url = raw_input('请输入宝贝链接:')
     scrap(url)
-
-
-
-
-
-
