@@ -36,7 +36,7 @@ def scrap(url):
         else:
             print u'请求超时,获取失败'
 
-        driver.quit()
+        
     except TimeoutException:
         print u'请求超时, 继续重试'
         scrap(url)
