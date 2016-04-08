@@ -63,7 +63,6 @@ def test_proxy(proxy):
 
 
 def check_proxy(proxy):
-    print '----------', proxy
     if test_proxy(proxy):
         print u'代理有效', proxy
         validate_proxies.append(proxy)
@@ -90,7 +89,7 @@ def clear_file():
         f.close()
 
 
-if __name__ == '__main__':
+def update_proxy():
     html = get_html()
     proxies = get_proxy_list(html)
     validate_proxy(proxies)

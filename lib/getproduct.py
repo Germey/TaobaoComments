@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from selenium import webdriver
 from pyquery import PyQuery as pq
 from selenium.common.exceptions import TimeoutException
 from twisted.python.win32 import WindowsError
