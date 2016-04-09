@@ -6,6 +6,7 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--disk-cache=true',
+    #'--proxy=106.37.177.251:3128'
 ]
 
 # 请求会话

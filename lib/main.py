@@ -68,8 +68,10 @@ def from_file():
     print urls
     for url in urls:
         scrap(url)
+    print u'采集结束,完成了', len(urls), u'个链接的采集'
 
 
 def from_input():
     url = raw_input('请输入宝贝链接:')
     scrap(url)
+    print u'采集结束'
