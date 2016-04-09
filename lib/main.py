@@ -11,7 +11,6 @@ from getrecommends import get_recommends
 from lib.newdriver import new_driver, new_proxy_driver
 from parse import parse_content
 from lib.geturls import get_urls
-from multiprocessing import Pool
 
 def scrap(url, fail_time=0):
     timeout = config.TIMEOUT
@@ -20,7 +19,9 @@ def scrap(url, fail_time=0):
 
     try:
         driver = config.DRIVER
+        print 'driver', driver
         driver.get(url)
+        print driver.page_source
         WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )

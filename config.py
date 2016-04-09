@@ -6,7 +6,7 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--disk-cache=true',
-    #'--proxy=106.37.177.251:3128'
+    '--proxy=124.226.169.163:8118'
 ]
 
 # 星级查询网站
@@ -14,7 +14,7 @@ STAR_INFO_URL = 'http://www.kehuda.com/g/x/#username='
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
-TIMEOUT = 20
+TIMEOUT = 10
 # 加载重试次数
 MAX_TRY = 6
 # 读取的URL文件
@@ -29,7 +29,6 @@ TO_WANG_FILE = 'file/wangwang.txt'
 PROXY_POOL = 'proxy/proxy.txt'
 # 最大星级
 MAX_STAR = 3
-
 # 最大失败次数
 MAX_FAIL = 7
 
