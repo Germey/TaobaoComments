@@ -6,3 +6,5 @@
 ghostdriver.log
 /data
 /proxy/ghostdriver.log
+/proxy/proxy.txt
+
