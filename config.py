@@ -9,6 +9,8 @@ SERVICE_ARGS = [
     #'--proxy=106.37.177.251:3128'
 ]
 
+# 星级查询网站
+STAR_INFO_URL = 'http://www.kehuda.com/g/x/#username='
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
@@ -25,6 +27,8 @@ TO_EXCEL_FILE = 'file/result.xls'
 TO_WANG_FILE = 'file/wangwang.txt'
 # 代理池路径
 PROXY_POOL = 'proxy/proxy.txt'
+# 最大星级
+MAX_STAR = 3
 
 # 最大失败次数
 MAX_FAIL = 7

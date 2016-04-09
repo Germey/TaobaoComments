@@ -2,6 +2,7 @@
 
 from pyquery import PyQuery as pq
 import config
+from lib.getuserinfo import get_user_info
 from lib.writetofile import write_to_excel
 from lib.writetofile import write_to_txt
 from getproduct import get_product
@@ -20,15 +21,17 @@ def parse_content(html):
             text = p.text()
             if not '***' in text:
                 name = p.find('b').text()
-                comment = text.replace(name, '')
-                print name, comment, url, title
-                write_content = [name, comment, url, title]
-                try:
-                    write_to_excel(write_content, config.TO_EXCEL_FILE)
-                    write_to_txt(" ".join(write_content),config.TO_TXT_FILE, name)
-                    write_to_txt(name, config.TO_WANG_FILE, name)
-                except TypeError:
-                    print u'宝贝信息不全，没有写入'
+                validate_star = get_user_info(name)
+                if validate_star:
+                    comment = text.replace(name, '')
+                    print name, comment, url, title
+                    write_content = [name, comment, url, title]
+                    try:
+                        write_to_excel(write_content, config.TO_EXCEL_FILE)
+                        write_to_txt(" ".join(write_content),config.TO_TXT_FILE, name)
+                        write_to_txt(name, config.TO_WANG_FILE, name)
+                    except TypeError:
+                        print u'宝贝信息不全，没有写入'
 
 
 
