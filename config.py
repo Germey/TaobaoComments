@@ -6,7 +6,6 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--disk-cache=true',
-    '--proxy=124.226.169.163:8118'
 ]
 
 # 星级查询网站

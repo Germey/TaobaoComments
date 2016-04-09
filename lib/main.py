@@ -19,9 +19,7 @@ def scrap(url, fail_time=0):
 
     try:
         driver = config.DRIVER
-        print 'driver', driver
         driver.get(url)
-        print driver.page_source
         WebDriverWait(driver, timeout).until(
             EC.presence_of_element_located((By.ID, "J_TabRecommends"))
         )
