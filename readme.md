@@ -97,7 +97,7 @@
   pip install requests
   ```
 
-## 运行测试
+## 使用方法
 
 进入项目
 
@@ -113,6 +113,12 @@
   python from_file.py
   ```
 
+
+* 更新代理池
+
+  ```
+  python update_proxy.py
+  ```
 
 ## 配置项目
 
