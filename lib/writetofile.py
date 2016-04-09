@@ -18,7 +18,7 @@ def write_to_txt(content, file, key=''):
                     print u'成功写入到文本', file
         else:
             if config.CONSOLE_OUTPUT:
-                print u'旺旺号已存在, 跳过写入文本', file
+                print u'内容已存在, 跳过写入文本', file
     except UnicodeDecodeError, e:
         if config.CONSOLE_OUTPUT:
             print u'写入文件失败, 编码问题', file, e.message
@@ -51,7 +51,7 @@ def write_to_excel(contents, file):
                 print u'已成功写入到文件', file, u'第', row + 1, u'行'
         else:
             if config.CONSOLE_OUTPUT:
-                print u'旺旺号已存在, 跳过写入文件', file
+                print u'内容已存在, 跳过写入文件', file
 
     except IOError:
         if config.CONSOLE_OUTPUT:

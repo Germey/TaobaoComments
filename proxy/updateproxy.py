@@ -5,13 +5,17 @@ from selenium import webdriver
 import requests
 import re
 import os
+from selenium.common.exceptions import TimeoutException
+from lib.writetofile import write_to_txt
 
 service_args = [
     '--load-images=false',
     '--disk-cache=true',
 ]
 
-url = 'http://www.66ip.cn/areaindex_1/1.html'
+base_url = 'http://www.66ip.cn/areaindex_1/'
+
+page_max = 10
 
 test_url = 'http://www.baidu.com'
 
@@ -20,12 +24,14 @@ validate_proxies = []
 file = 'proxy/proxy.txt'
 
 
-def get_html():
-    driver = webdriver.PhantomJS(service_args=service_args)
-    driver.get(url)
-    html = driver.page_source
-    return html
-
+def get_html(url):
+    try:
+        driver = webdriver.PhantomJS(service_args=service_args)
+        driver.get(url)
+        html = driver.page_source
+        return html
+    except (TimeoutException, OSError):
+        print u'出现请求错误,跳过此链接'
 
 def get_proxy_list(html):
     proxies = []
@@ -50,16 +56,8 @@ def test_proxy(proxy):
     except ConnectTimeout:
         print u'超时,代理无效', proxy
         return False
-    except ConnectionError:
-        print u'超时,代理无效', proxy
-        return False
-    except ChunkedEncodingError:
+    except (ConnectionError, ChunkedEncodingError, ReadTimeout, Exception):
         print u'发生错误,代理无效', proxy
-        return False
-    except ReadTimeout:
-        print u'发生错误,代理无效', proxy
-        return False
-    except Exception:
         return False
 
 
@@ -67,34 +65,29 @@ def check_proxy(proxy):
     if test_proxy(proxy):
         print u'代理有效', proxy
         validate_proxies.append(proxy)
-        write_to_file(proxy)
+        write_to_txt(proxy, file, proxy)
     else:
-        print u'代理无效'
+        print u'代理无效', proxy
 
 
 def validate_proxy(proxies):
-    clear_file()
     pool = Pool()
     pool.map(check_proxy, proxies)
-
-
-def write_to_file(proxy):
-    with open(file, 'a') as f:
-        f.write(proxy + '\n')
-        f.close()
 
 
 def clear_file():
     with open(file, 'w') as f:
         f.write('')
         f.close()
+        print u'已成功清理代理文本'
 
 
 def update_proxy():
-    html = get_html()
-    proxies = get_proxy_list(html)
-    validate_proxy(proxies)
-
-
-
-
+    clear_file()
+    for page in range(1, page_max):
+        url = base_url + str(page) + '.html'
+        print u'当前正在抓取第一页代理', url
+        html = get_html(url)
+        proxies = get_proxy_list(html)
+        validate_proxy(proxies)
+        print u'当前已完成比例', page*100/page_max, u'请稍后'
