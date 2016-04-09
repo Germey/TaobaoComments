@@ -89,6 +89,14 @@
   pip install twisted
   ```
 
+#### requests
+
+* 安装
+
+  ```
+  pip install requests
+  ```
+
 ## 运行测试
 
 进入项目
