@@ -87,7 +87,7 @@ def clear_file():
 
 def update_proxy():
     clear_file()
-    for page in range(1, page_max):
+    for page in range(1, page_max + 1):
         url = base_url + str(page) + '.html'
         print u'当前正在抓取第', page, '页代理', url
         html = get_html(url)
