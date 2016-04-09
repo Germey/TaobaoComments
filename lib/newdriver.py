@@ -13,6 +13,4 @@ def new_proxy_driver():
     service_args = copy.copy(config.SERVICE_ARGS)
     proxy = get_random_proxy()
     service_args.append('--proxy=' + proxy)
-    print service_args
     config.DRIVER = webdriver.PhantomJS(service_args=service_args)
-    print config.DRIVER
