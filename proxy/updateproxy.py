@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 from requests.exceptions import ConnectTimeout, ConnectionError, ChunkedEncodingError, ReadTimeout
-from multiprocessing import Pool
 from selenium import webdriver
 import requests
 import re
-import os
+import threading
 from selenium.common.exceptions import TimeoutException
 from lib.writetofile import write_to_txt
 
@@ -15,7 +14,7 @@ service_args = [
 
 base_url = 'http://www.66ip.cn/areaindex_1/'
 
-page_max = 10
+page_max = 15
 
 test_url = 'http://www.baidu.com'
 
@@ -32,6 +31,7 @@ def get_html(url):
         return html
     except (TimeoutException, OSError):
         print u'出现请求错误,跳过此链接'
+
 
 def get_proxy_list(html):
     proxies = []
@@ -54,14 +54,13 @@ def test_proxy(proxy):
         else:
             return False
     except ConnectTimeout:
-        print u'超时,代理无效', proxy
         return False
     except (ConnectionError, ChunkedEncodingError, ReadTimeout, Exception):
-        print u'发生错误,代理无效', proxy
         return False
 
 
 def check_proxy(proxy):
+    print u'正在检查代理', proxy
     if test_proxy(proxy):
         print u'代理有效', proxy
         validate_proxies.append(proxy)
@@ -71,8 +70,12 @@ def check_proxy(proxy):
 
 
 def validate_proxy(proxies):
-    pool = Pool()
-    pool.map(check_proxy, proxies)
+    threads = []
+    for proxy in proxies:
+        threads.append(threading.Thread(target=check_proxy, args=(proxy,)))
+    for t in threads:
+        t.setDaemon(True)
+        t.start()
 
 
 def clear_file():
@@ -86,8 +89,8 @@ def update_proxy():
     clear_file()
     for page in range(1, page_max):
         url = base_url + str(page) + '.html'
-        print u'当前正在抓取第一页代理', url
+        print u'当前正在抓取第', page, '页代理', url
         html = get_html(url)
         proxies = get_proxy_list(html)
         validate_proxy(proxies)
-        print u'当前已完成比例', page*100/page_max, u'请稍后'
+        print u'当前已完成比例', page * 100 / page_max, u'%, 请稍后'
