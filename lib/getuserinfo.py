@@ -13,7 +13,7 @@ import urllib2
 from urllib import quote
 
 def get_user_info(user, fail_time=0):
-    print u'找到用户',user ,u'的评论, 正在查询', user, '的星级'
+    print u'找到用户',user ,u'的评论, 正在查询', user, u'的星级'
     base_url = config.STAR_INFO_URL
     url = base_url + quote(user.encode('utf-8', 'ignore'))
     allow_star = range(1, config.MAX_STAR + 1)
@@ -28,7 +28,6 @@ def get_user_info(user, fail_time=0):
         doc = pq(html)
         star = doc('div.tb_result.fl .infomation > ol > li:nth-child(4) a img')
         src =  star.attr('src')
-        print src
         for allow in allow_star:
             if 'b_red_'+ str(allow) in src:
                 print u'该用户', user, u'星级符合要求'
