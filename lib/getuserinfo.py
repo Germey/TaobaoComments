@@ -15,8 +15,7 @@ from urllib import quote
 def get_user_info(user, fail_time=0):
     print u'找到用户',user ,u'的评论, 正在查询', user, '的星级'
     base_url = config.STAR_INFO_URL
-    url = base_url + quote(str(user).encode('utf-8', 'ignore'))
-    print url
+    url = base_url + quote(user.encode('utf-8', 'ignore'))
     allow_star = range(1, config.MAX_STAR + 1)
     try:
         time.sleep(0.5)
