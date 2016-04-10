@@ -21,6 +21,7 @@ def get_user_info(user, fail_time=0):
         time.sleep(0.5)
         driver = config.DRIVER
         driver.get(url)
+        print url
         WebDriverWait(driver, config.TIMEOUT).until(
             EC.presence_of_element_located((By.CLASS_NAME, "address"))
         )
@@ -28,6 +29,7 @@ def get_user_info(user, fail_time=0):
         doc = pq(html)
         star = doc('div.tb_result.fl .infomation > ol > li:nth-child(4) a img')
         src =  star.attr('src')
+        print src
         for allow in allow_star:
             if 'b_red_'+ str(allow) in src:
                 print u'该用户', user, u'星级符合要求'

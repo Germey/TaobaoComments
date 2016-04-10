@@ -5,9 +5,7 @@ from selenium import webdriver
 # 加载配置
 SERVICE_ARGS = [
     '--load-images=false',
-    '--disk-cache=true',
-    #'--proxy=124.200.181.50:8118',
-    '--proxy-type=none'
+    '--ignore-ssl-errors=true',
 ]
 
 # 星级查询网站
