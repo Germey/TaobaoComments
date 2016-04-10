@@ -53,6 +53,8 @@ def scrap(url, fail_time=0):
                 print u'失败次数过多, 跳过此请求'
             return False
         scrap(url, fail_time)
+    except (WindowsError, OSError, Exception):
+        print u'未知错误, 跳过继续运行'
 
 
 
