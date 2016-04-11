@@ -11,6 +11,8 @@ from getrecommends import get_recommends
 from lib.newdriver import new_driver, new_proxy_driver
 from parse import parse_content
 from lib.geturls import get_urls
+from proxy.getproxy import update_proxy_pool
+
 
 def scrap(url, fail_time=0):
     timeout = config.TIMEOUT
@@ -33,11 +35,13 @@ def scrap(url, fail_time=0):
 
     except TimeoutException:
         print u'请求超时, 正在切换代理, 继续重试'
+        update_proxy_pool()
         new_proxy_driver()
         fail_time = fail_time + 1
         if config.CONSOLE_OUTPUT:
             print u'当前页面请求失败数', fail_time
         if fail_time == config.MAX_FAIL:
+            update_proxy_pool()
             if config.CONSOLE_OUTPUT:
                 print u'失败次数过多, 跳过此请求'
             return False

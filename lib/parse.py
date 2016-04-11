@@ -15,7 +15,6 @@ def parse_content(html):
     for li in lis.items():
         url = li.find('a').attr('href')
         url = parse_url(url)
-        title = get_product(url)
         ps = li.find('p').items()
         for p in ps:
             text = p.text()
@@ -25,9 +24,11 @@ def parse_content(html):
                 if config.STAR_FILTER:
                     validate_star = get_user_info(name)
                     if validate_star:
+                        title = get_product(url)
                         print name, comment, url, title
                         write_info(name, comment, url, title)
                 else:
+                    title = get_product(url)
                     print name, comment, url, title
                     write_info(name, comment, url, title)
 

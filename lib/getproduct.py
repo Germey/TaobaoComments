@@ -10,6 +10,7 @@ import time
 import socket
 import urllib2
 from lib.newdriver import new_proxy_driver, new_driver
+from proxy.getproxy import update_proxy_pool
 
 
 def get_product(url, fail_time=0):
@@ -26,11 +27,13 @@ def get_product(url, fail_time=0):
         return title
     except TimeoutException:
         print u'请求超时, 正在切换代理, 继续重试'
+        update_proxy_pool()
         new_proxy_driver()
         fail_time = fail_time + 1
         if config.CONSOLE_OUTPUT:
             print u'当前失败次数', fail_time
         if fail_time == config.MAX_FAIL:
+            update_proxy_pool()
             if config.CONSOLE_OUTPUT:
                 print u'失败次数过多, 跳过此请求'
             return False

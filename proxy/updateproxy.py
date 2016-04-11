@@ -20,7 +20,7 @@ service_args = [
 
 base_url = 'http://www.66ip.cn/areaindex_1/'
 
-page_max = 15
+page_max = 5
 
 test_url = 'http://www.baidu.com'
 
@@ -67,7 +67,7 @@ def test_proxy(proxy):
             EC.presence_of_element_located((By.TAG_NAME, "title"))
         )
         html = driver.page_source
-        driver.quit()
+        driver.close()
         doc = pq(html)
         title = doc('title').text()
         print title
@@ -92,7 +92,7 @@ def validate_proxy(proxies):
     threads = []
     # for proxy in proxies:
     #     check_proxy(proxy)
-    pool = Pool(4)
+    pool = Pool(2)
     pool.map(check_proxy, proxies)
 
     '''

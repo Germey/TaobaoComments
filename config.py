@@ -6,8 +6,6 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--ignore-ssl-errors=true',
-    # '--proxy=120.76.142.46:16816',
-    # '--proxy-auth=1016903103:9p69q4g8'
 ]
 
 # 星级查询网站
@@ -15,7 +13,7 @@ STAR_INFO_URL = 'http://www.kehuda.com/g/x/#username='
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
-TIMEOUT = 10
+TIMEOUT = 30
 # 加载重试次数
 MAX_TRY = 6
 # 读取的URL文件
