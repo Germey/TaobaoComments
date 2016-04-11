@@ -74,7 +74,8 @@ def from_file():
     print u'共有', config.TOTAL_COUNT, u'个链接'
     count = int(get_count())
     print u'上次爬取到第', int(count) + 1, u'个链接, 继续爬取'
-    num = raw_input('输入 1 继续爬取,输入 2 重新爬取:\n')
+    print u'输入 1 继续爬取,输入 2 重新爬取:'
+    num = raw_input()
     if num == '2':
         count = 0
         print u'开始重新爬取'
