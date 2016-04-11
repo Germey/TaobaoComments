@@ -32,11 +32,14 @@ def scrap(url, fail_time=0):
             parse_content(html)
         else:
             print u'请求超时, 获取失败, 此页面不存在相应内容'
-
     except TimeoutException:
-        print u'请求超时, 正在切换代理, 继续重试'
-        update_proxy_pool()
-        new_proxy_driver()
+        if fail_time <=2 :
+            print u'请求超时, 正在切换代理, 继续重试'
+            update_proxy_pool()
+            new_proxy_driver()
+        else:
+            print u'请求超时,正在切换会话重试'
+            new_driver()
         fail_time = fail_time + 1
         if config.CONSOLE_OUTPUT:
             print u'当前页面请求失败数', fail_time
