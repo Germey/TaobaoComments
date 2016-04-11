@@ -6,6 +6,8 @@ from selenium import webdriver
 SERVICE_ARGS = [
     '--load-images=false',
     '--ignore-ssl-errors=true',
+    # '--proxy=120.76.142.46:16816',
+    # '--proxy-auth=1016903103:9p69q4g8'
 ]
 
 # 星级查询网站
@@ -35,5 +37,5 @@ MAX_FAIL = 7
 CONSOLE_OUTPUT = True
 
 # 是否过滤星级
-STAR_FILTER = False
+STAR_FILTER = True
 

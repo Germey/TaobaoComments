@@ -5,7 +5,13 @@ import requests
 import re
 import threading
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from lib.writetofile import write_to_txt
+from copy import copy
+from multiprocessing import Pool
+from pyquery import PyQuery as pq
 
 service_args = [
     '--load-images=false',
@@ -21,6 +27,8 @@ test_url = 'http://www.baidu.com'
 validate_proxies = []
 
 file = 'proxy/proxy.txt'
+
+driver = webdriver.PhantomJS(service_args=service_args)
 
 
 def get_html(url):
@@ -45,15 +53,26 @@ def get_proxy_list(html):
 
 def test_proxy(proxy):
     try:
-        proxies = {
-            'http': 'http://' + proxy
-        }
-        response = requests.get(test_url, proxies=proxies, timeout=10)
-        if response:
-            return True
-        else:
-            return False
-    except ConnectTimeout:
+        service_args = [
+            '--load-images=false',
+            '--disk-cache=true',
+            # '--proxy=120.76.142.46:16816',
+            # '--proxy-auth=1016903103:9p69q4g8',
+        ]
+        service_args.append('--proxy=' + proxy)
+        print service_args
+        driver = webdriver.PhantomJS(service_args=service_args)
+        driver.get(test_url)
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.TAG_NAME, "title"))
+        )
+        html = driver.page_source
+        driver.quit()
+        doc = pq(html)
+        title = doc('title').text()
+        print title
+        return True
+    except (TimeoutException, ConnectTimeout):
         return False
     except (ConnectionError, ChunkedEncodingError, ReadTimeout, Exception):
         return False
@@ -71,11 +90,18 @@ def check_proxy(proxy):
 
 def validate_proxy(proxies):
     threads = []
+    # for proxy in proxies:
+    #     check_proxy(proxy)
+    pool = Pool(4)
+    pool.map(check_proxy, proxies)
+
+    '''
     for proxy in proxies:
         threads.append(threading.Thread(target=check_proxy, args=(proxy,)))
     for t in threads:
         t.setDaemon(True)
         t.start()
+    '''
 
 
 def clear_file():
