@@ -30,6 +30,7 @@ def get_user_info(user, fail_time=0):
         star = doc('div.tb_result.fl .infomation > ol > li:nth-child(4) a img')
         src =  star.attr('src')
         print src
+        driver.get('http://www.baidu.com')
         for allow in allow_star:
             if 'b_red_'+ str(allow) in src:
                 print u'该用户', user, u'星级符合要求'

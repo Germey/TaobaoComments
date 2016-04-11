@@ -5,7 +5,6 @@ from selenium import webdriver
 # 加载配置
 SERVICE_ARGS = [
     '--load-images=false',
-    '--ignore-ssl-errors=true',
 ]
 
 # 星级查询网站
@@ -27,7 +26,7 @@ TO_WANG_FILE = 'file/wangwang.txt'
 # 代理池路径
 PROXY_POOL = 'proxy/proxy.txt'
 # 最大星级
-MAX_STAR = 3
+MAX_STAR = 5
 # 最大失败次数
 MAX_FAIL = 7
 

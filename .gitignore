@@ -2,7 +2,6 @@
 *.pyc
 /file/*.txt
 /file/*.xls
-!/file/urls.txt
 ghostdriver.log
 /data
 /proxy/ghostdriver.log
