@@ -23,7 +23,7 @@ def get_user_info(user, fail_time=0):
     url = base_url #+ quote(user.encode('utf-8', 'ignore'))
     allow_star = range(1, config.MAX_STAR + 1)
     try:
-        time.sleep(0.5)
+        time.sleep(1)
         driver = config.DRIVER
         driver.get(url)
         element = driver.find_element_by_id('txt_name')
@@ -58,6 +58,7 @@ def get_user_info(user, fail_time=0):
         return False
     except NoSuchElementException:
         print u'查询星级失败, 正在重试'
+        print u'请打开 http://www.taoyitu.com/ 输入验证码,即可迅速解决问题'
         if fail_time >=2 :
             print u'请求超时, 正在切换代理, 继续重试'
             update_proxy_pool()

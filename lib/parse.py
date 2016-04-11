@@ -3,7 +3,7 @@
 from pyquery import PyQuery as pq
 import config
 from lib.getuserinfo import get_user_info
-from lib.writetofile import write_to_excel
+from lib.writetofile import write_to_excel, repeat_txt, repeat_excel
 from lib.writetofile import write_to_txt
 from getproduct import get_product
 
@@ -20,17 +20,20 @@ def parse_content(html):
             text = p.text()
             if not '***' in text:
                 name = p.find('b').text()
-                comment = text.replace(name, '')
-                if config.STAR_FILTER:
-                    validate_star = get_user_info(name)
-                    if validate_star:
+                if not repeat_txt(name, config.TO_WANG_FILE) and not repeat_txt(name, config.TO_TXT_FILE) and not repeat_excel(name, config.TO_EXCEL_FILE):
+                    comment = text.replace(name, '')
+                    if config.STAR_FILTER:
+                        validate_star = get_user_info(name)
+                        if validate_star:
+                            title = get_product(url)
+                            print name, comment, url, title
+                            write_info(name, comment, url, title)
+                    else:
                         title = get_product(url)
                         print name, comment, url, title
                         write_info(name, comment, url, title)
-                else:
-                    title = get_product(url)
-                    print name, comment, url, title
-                    write_info(name, comment, url, title)
+                else :
+                    print u'该旺旺号', name, u'已经存在, 跳过查询'
 
 
 

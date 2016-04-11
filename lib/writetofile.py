@@ -83,3 +83,23 @@ def repeat_excel(word, file):
         return True
     else:
         return False
+
+def write_count(count, file):
+    try:
+        with open(file, 'w') as f:
+            f.write(str(count))
+            f.close()
+    except TypeError:
+        print u'页码写入失败'
+
+
+def get_count():
+    try:
+        with open(config.COUNT_TXT, 'r') as f:
+            page = f.read()
+            if not page:
+                return 0
+            else:
+                return page
+    except Exception:
+        print '读页码失败'

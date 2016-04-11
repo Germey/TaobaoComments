@@ -29,7 +29,8 @@ PROXY_POOL = 'proxy/proxy.txt'
 # 电话号文本
 PHONE_TXT = 'file/phone.txt'
 
-# 
+# 计数文本
+COUNT_TXT = 'file/count.txt'
 
 # 最大星级
 MAX_STAR = 5
@@ -43,3 +44,8 @@ CONSOLE_OUTPUT = True
 # 是否过滤星级
 STAR_FILTER = True
 
+# 总共的连接数
+TOTAL_COUNT = 1
+
+# 当前的链接第几个
+NOW_COUNT = 0

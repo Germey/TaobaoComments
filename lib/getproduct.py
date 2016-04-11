@@ -15,6 +15,7 @@ from proxy.getproxy import update_proxy_pool
 
 def get_product(url, fail_time=0):
     try:
+        print u'当前宝贝在第', config.NOW_COUNT + 1, u'个网页, 共', config.TOTAL_COUNT, u'个网页'
         time.sleep(1)
         driver = config.DRIVER
         driver.get(url)
@@ -26,7 +27,7 @@ def get_product(url, fail_time=0):
         title = doc('title').text()
         return title
     except TimeoutException:
-        if fail_time >=2 :
+        if fail_time >= 2:
             print u'请求超时, 正在切换代理, 继续重试'
             update_proxy_pool()
             new_proxy_driver()
