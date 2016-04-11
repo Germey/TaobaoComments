@@ -25,8 +25,13 @@ TO_EXCEL_FILE = 'file/result.xls'
 TO_WANG_FILE = 'file/wangwang.txt'
 # 代理池路径
 PROXY_POOL = 'proxy/proxy.txt'
+
+# 电话号文本
+PHONE_TXT = 'file/phone.txt'
+
 # 最大星级
 MAX_STAR = 5
+
 # 最大失败次数
 MAX_FAIL = 7
 

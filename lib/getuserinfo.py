@@ -30,7 +30,7 @@ def get_user_info(user, fail_time=0):
         )
 
         html = driver.page_source
-        time.sleep(2)
+        time.sleep(3)
         pattern = re.compile('<span id="buyer_ratecount.*?src="(.*?)gif', re.S)
         result = re.search(pattern, html)
         print result.group(0)
