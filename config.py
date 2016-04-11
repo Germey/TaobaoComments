@@ -34,4 +34,6 @@ MAX_FAIL = 7
 # 输出额外信息
 CONSOLE_OUTPUT = True
 
+# 是否过滤星级
+STAR_FILTER = False
 

@@ -21,20 +21,26 @@ def parse_content(html):
             text = p.text()
             if not '***' in text:
                 name = p.find('b').text()
-                validate_star = get_user_info(name)
-                if validate_star:
-                    comment = text.replace(name, '')
+                comment = text.replace(name, '')
+                if config.STAR_FILTER:
+                    validate_star = get_user_info(name)
+                    if validate_star:
+                        print name, comment, url, title
+                        write_info(name, comment, url, title)
+                else:
                     print name, comment, url, title
-                    write_content = [name, comment, url, title]
-                    try:
-                        write_to_excel(write_content, config.TO_EXCEL_FILE)
-                        write_to_txt(" ".join(write_content),config.TO_TXT_FILE, name)
-                        write_to_txt(name, config.TO_WANG_FILE, name)
-                    except TypeError:
-                        print u'宝贝信息不全，没有写入'
+                    write_info(name, comment, url, title)
 
 
 
+def write_info(name, comment, url ,title):
+    write_content = [name, comment, url, title]
+    try:
+        write_to_excel(write_content, config.TO_EXCEL_FILE)
+        write_to_txt(" ".join(write_content),config.TO_TXT_FILE, name)
+        write_to_txt(name, config.TO_WANG_FILE, name)
+    except TypeError:
+        print u'宝贝信息不全，没有写入'
 
 def parse_url(url):
     if not url.startswith('http'):
