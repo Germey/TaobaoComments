@@ -47,6 +47,7 @@ def get_user_info(user, fail_time=0):
         return False
     except TimeoutException:
         print u'查询失败, 正在重试'
+        print u'请打开 http://www.taoyitu.com/ 输入验证码,即可迅速解决问题'
         fail_time = fail_time + 1
         if fail_time == 3:
             if config.CONSOLE_OUTPUT:
