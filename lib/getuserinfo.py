@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from pyquery import PyQuery as pq
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,6 +13,9 @@ import socket
 import re
 import urllib2
 from urllib import quote
+from lib.newdriver import new_driver, new_proxy_driver
+from proxy.getproxy import update_proxy_pool
+
 
 def get_user_info(user, fail_time=0):
     print u'找到用户',user ,u'的评论, 正在查询', user, u'的星级'
@@ -53,5 +56,19 @@ def get_user_info(user, fail_time=0):
     except (socket.error, urllib2.URLError):
         print u'查询失败, 跳过该用户'
         return False
-    except (WindowsError, OSError, Exception):
-        print u'用户星级不符合要求'
+    except NoSuchElementException:
+        print u'查询星级失败, 正在重试'
+        if fail_time >=2 :
+            print u'请求超时, 正在切换代理, 继续重试'
+            update_proxy_pool()
+            new_proxy_driver()
+        else:
+            print u'请求超时,正在切换会话重试'
+            new_driver()
+        time.sleep(3)
+        fail_time = fail_time + 1
+        if fail_time == 5:
+            if config.CONSOLE_OUTPUT:
+                print u'失败次数过多, 跳过此用户'
+            return False
+        return get_user_info(user, fail_time)

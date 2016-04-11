@@ -33,7 +33,7 @@ def scrap(url, fail_time=0):
         else:
             print u'请求超时, 获取失败, 此页面不存在相应内容'
     except TimeoutException:
-        if fail_time <=2 :
+        if fail_time >=2 :
             print u'请求超时, 正在切换代理, 继续重试'
             update_proxy_pool()
             new_proxy_driver()

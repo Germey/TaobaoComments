@@ -29,6 +29,8 @@ PROXY_POOL = 'proxy/proxy.txt'
 # 电话号文本
 PHONE_TXT = 'file/phone.txt'
 
+# 
+
 # 最大星级
 MAX_STAR = 5
 
