@@ -11,6 +11,8 @@ SERVICE_ARGS = [
 STAR_INFO_URL = 'http://www.taoyitu.com/'
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
+
+C_DRIVER = webdriver.Chrome()
 # 请求超时时间,单位秒
 TIMEOUT = 30
 # 加载重试次数

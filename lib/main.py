@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from twisted.python.win32 import WindowsError
 from getrecommends import get_recommends
+from lib.filter import filter_comment
 from lib.newdriver import new_driver, new_proxy_driver
 from lib.writetofile import write_count, get_count
 from parse import parse_content
@@ -99,3 +100,11 @@ def from_input():
     url = raw_input('请输入宝贝链接:')
     scrap(url)
     print u'采集结束'
+
+
+def filter_result():
+    print u'开始过滤'
+    # url = raw_input(u'输入url')
+    url = 'https://detail.tmall.com/item.htm?id=43953033637'
+    filter_comment(url)
+    print u'过滤结束'
