@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.support.wait import WebDriverWait
 import time
 from pyquery import PyQuery as pq
@@ -21,12 +21,19 @@ config.END_COUNT = 0
 def filter_comment(url):
     timeout = config.TIMEOUT
     driver = config.DRIVER
+    print u'正在加载网页'
     driver.get(url)
-    WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located((By.ID, "J_TabBarBox"))
-    )
-    result = get_comments(driver, config.MAX_TRY)
+    try:
+        WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located((By.ID, "J_TabBar"))
+        )
+    except TimeoutException:
+        print u'请求超时，请检查网页设置'
+        return
 
+
+    result = get_comments(driver, config.MAX_TRY)
+    #result = 1
     if result:
         driver.get_screenshot_as_file('a.png')
         print u'网页加载成功，正在切换至评论页面'
@@ -84,6 +91,7 @@ def get_comments(driver, max_time=15):
     result = try_get(driver)
     while not result:
         result = try_get(driver)
+        print count
         count = count + 1
         if count == max_time:
             return False
@@ -95,7 +103,7 @@ def try_get(driver):
     driver.execute_script(js)
     time.sleep(2)
     try:
-        driver.find_element_by_id('J_TabBar')
+        driver.find_element_by_css_selector('#J_TabBar li a')
     except NoSuchElementException:
         return False
     return True
