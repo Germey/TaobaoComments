@@ -12,7 +12,7 @@ STAR_INFO_URL = 'http://www.taoyitu.com/'
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 
-C_DRIVER = webdriver.Chrome()
+#C_DRIVER = webdriver.Chrome()
 # 请求超时时间,单位秒
 TIMEOUT = 30
 # 加载重试次数
@@ -51,3 +51,21 @@ TOTAL_COUNT = 1
 
 # 当前的链接第几个
 NOW_COUNT = 0
+
+# 间隔最大天数
+MAX_DAY = 5
+
+# 过滤的文本
+FILTER_FILE = 'file/filter.txt'
+
+# 翻页
+NEXT_END = 0
+
+# 最大不匹配数
+END_MAX = 20
+
+# 不匹配数
+END_COUNT = 0
+
+# 匹配文件
+FILTER_OUT_PUT = 'file/filter_res.txt'
