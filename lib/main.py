@@ -105,7 +105,7 @@ def from_input():
 def filter_result():
     print u'正在开始过滤，请确保已经将过滤的文本放置到', config.FILTER_FILE
     print u'过滤后的结果会保存在', config.FILTER_OUT_PUT
-    #url = raw_input(u'输入淘宝的链接:\n')
-    url = 'https://detail.tmall.com/item.htm?id=43953033637'
+    url = raw_input(u'输入淘宝的链接:\n')
+    #url = 'https://detail.tmall.com/item.htm?id=43953033637'
     filter_comment(url)
     print u'过滤结束, 请查看', config.FILTER_OUT_PUT, u'文件，得到相应内容'
