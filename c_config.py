@@ -12,7 +12,7 @@ STAR_INFO_URL = 'http://www.taoyitu.com/'
 # 请求会话
 #DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 
-C_DRIVER = webdriver.Chrome()
+C_DRIVER = webdriver.Chrome(service_args=SERVICE_ARGS)
 # 请求超时时间,单位秒
 TIMEOUT = 30
 # 加载重试次数
@@ -32,7 +32,7 @@ PROXY_POOL = 'proxy/proxy.txt'
 PHONE_TXT = 'file/phone.txt'
 
 # 计数文本
-COUNT_TXT = 'file/count.txt'
+COUNT_TXT = 'file/count_filter.txt'
 
 # 最大星级
 MAX_STAR = 5
@@ -53,10 +53,13 @@ TOTAL_COUNT = 1
 NOW_COUNT = 0
 
 # 间隔最大天数
-MAX_DAY = 5
+MAX_DAY = 10
 
 # 过滤的文本
 FILTER_FILE = 'file/filter.txt'
+
+# 过滤评论后的文本
+FILTER_RESULT = 'file/final.xls'
 
 # 翻页
 NEXT_END = 0
@@ -109,4 +112,4 @@ LOGIN_URL = 'https://login.taobao.com/member/login.jhtml?spm=a21bo.50862.7548944
 
 EXCEPT_YEAR = 2015
 
-DATE_COUNT_FILTER = False
+DATE_COUNT_FILTER = True
