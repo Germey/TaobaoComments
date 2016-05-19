@@ -140,7 +140,7 @@ def find_file(user):
                 user_info = infos[0]
                 if user.decode('utf-8', 'ignore') == user_info.decode('utf-8', 'ignore'):
                     if not user in filter_res:
-                        print u'已经匹配到', user, '的评论'
+                        print u'已经匹配到', user, u'的评论'
                     filter_res.add(user)
 
 def find_id(user):

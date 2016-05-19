@@ -102,4 +102,5 @@ def get_count():
             else:
                 return page
     except Exception:
-        print '读页码失败'
+        print u'不存在计数文件'
+        return 0
