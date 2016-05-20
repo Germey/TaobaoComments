@@ -2,16 +2,16 @@
 import xlrd
 from xlutils.copy import copy
 
-import config
 import sys
+import m_config
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 
 
 def merge_file():
-    excel = config.TO_EXCEL_FILE
-    phone = config.PHONE_TXT
+    excel = m_config.EXCEL_FILE
+    phone = m_config.PHONE_FILE
     rb = xlrd.open_workbook(excel)
     sheet = rb.sheets()[0]
     names = sheet.col_values(0)
@@ -52,7 +52,7 @@ def merge_file():
                     print u'匹配到用户', name
                     print u'电话号码', phone
                     if len(second) == 11:
-                        write_sheet.write(count - 1, 4, second)
+                        write_sheet.write(count - 1, 7, second)
                         wb.save(excel)
                     else:
                         print u'电话号码信息不完整, 没有导入'
