@@ -26,20 +26,19 @@ def read_from_excel(start):
         print u'已经过滤完毕'
         return
     for i in range(start, row_num):
-        try:
-            info = sheet.row_values(i)
-            write_count(i, c_config.COUNT_TXT)
 
-            if len(info) > 3:
-                print u'开始过滤第', str(int(i)+1), u'行的信息'
-                if info[0]:
-                    url = info[2]
-                    print u'旺旺号',info[0]
-                    filter_comment_info(url, info)
-            else:
-                print u'该行无有效旺旺信息，跳过过滤'
-        except Exception:
-            print u'旺旺信息不完整，跳过该过滤'
+        info = sheet.row_values(i)
+        write_count(i, c_config.COUNT_TXT)
+
+        if len(info) > 3:
+            print u'开始过滤第', str(int(i)+1), u'行的信息'
+            if info[0]:
+                url = info[2]
+                print u'旺旺号',info[0]
+                filter_comment_info(url, info)
+        else:
+            print u'该行无有效旺旺信息，跳过过滤'
+
 
 
 
@@ -89,6 +88,8 @@ def filter_comment_info(url, info):
         html = driver.page_source
 
         max_page = int(get_comments_count(html)) / 20 + 1
+        if max_page > 50:
+            max_page = 50
         comments = parse_comments(html)
         print 'user', info[0], 'comment', info[1]
         comment = filter_comments(comments, info[0], info[1])
