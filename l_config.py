@@ -16,4 +16,6 @@ DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 
 #DRIVER = webdriver.Chrome()
 
-FILE = 'file/url.txt'
+FILE = 'file/urls.txt'
+
+CONTENT = ''

@@ -97,6 +97,11 @@ def find_urls():
         get_more_link()
     except Exception:
         print u'网络错误，请重试'
+
+        with open(l_config.FILE, 'w') as f:
+            f.write(l_config.CONTENT)
+            f.close()
+            print u'出现异常，已还原原内容'
     finally:
         l_config.DRIVER.close()
         print u'采集结束, 共采集', len(link_list), u'个链接'
@@ -113,6 +118,11 @@ def write_file(href):
 
 def clear_file():
     try:
+        with open(l_config.FILE, 'r') as f:
+            l_config.CONTENT = f.read()
+            print l_config.CONTENT
+            f.close()
+        print u'正在清空爬取链接，等待重新爬取新链接'
         with open(l_config.FILE, 'w') as f:
             f.write('')
             f.close()
