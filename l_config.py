@@ -19,3 +19,5 @@ DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 FILE = 'file/urls.txt'
 
 CONTENT = ''
+
+PAGE = 25

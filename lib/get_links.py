@@ -102,7 +102,8 @@ def find_urls():
         clear_file()
         html = get_results(keyword)
         parse_html(html)
-        for i in range(1, 16):
+        for i in range(1, l_config.PAGE + 1):
+            print u'当前第',(i-1), u'页'
             get_more_link()
     except Exception:
         print u'网络错误，请重试'
