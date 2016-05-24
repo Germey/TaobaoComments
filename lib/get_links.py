@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from pyquery import PyQuery as pq
 import l_config
 import sys
+import locale
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -30,6 +31,7 @@ def get_results(keyword):
         element = driver.find_element_by_css_selector('#mq')
         print u'成功找到了搜索框'
         keyword = keyword.decode('utf-8', 'ignore')
+        print keyword
         print u'输入关键字', keyword
         for word in keyword:
             print word
@@ -92,25 +94,17 @@ def get_more_link():
 
 def find_urls():
     print u'请输入要提取链接的关键字'
-    keyword = raw_input()
+    keyword = raw_input().decode(sys.stdin.encoding or locale.getpreferredencoding(True))
+    
     print u'您要提取的关键字是', keyword
     print u'正在开始提取...'
-    try:
-        clear_file()
-        html = get_results(keyword)
-        parse_html(html)
-        for i in range(1, 16):
-            get_more_link()
-    except Exception:
-        print u'网络错误，请重试'
-
-        with open(l_config.FILE, 'w') as f:
-            f.write(l_config.CONTENT)
-            f.close()
-            print u'出现异常，已还原原内容'
-    finally:
-        l_config.DRIVER.close()
-        print u'采集结束, 共采集', len(link_list), u'个链接'
+    
+    clear_file()
+    html = get_results(keyword)
+    parse_html(html)
+    for i in range(1, 16):
+	    get_more_link()
+    
 
 
 def write_file(href):
