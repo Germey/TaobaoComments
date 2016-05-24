@@ -98,12 +98,23 @@ def find_urls():
     
     print u'您要提取的关键字是', keyword
     print u'正在开始提取...'
-    
-    clear_file()
-    html = get_results(keyword)
-    parse_html(html)
-    for i in range(1, 16):
-	    get_more_link()
+    try:
+        clear_file()
+        html = get_results(keyword)
+        parse_html(html)
+        for i in range(1, 16):
+            get_more_link()
+    except Exception:
+        print u'网络错误，请重试'
+
+        with open(l_config.FILE, 'w') as f:
+            f.write(l_config.CONTENT)
+            f.close()
+            print u'出现异常，已还原原内容'
+    finally:
+        l_config.DRIVER.close()
+        print u'采集结束, 共采集', len(link_list), u'个链接'
+
     
 
 
