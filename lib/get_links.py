@@ -29,7 +29,12 @@ def get_results(keyword):
     try:
         element = driver.find_element_by_css_selector('#mq')
         print u'成功找到了搜索框'
-        element.send_keys(keyword.decode('utf-8', 'ignore'), Keys.ENTER)
+        keyword = keyword.decode('utf-8', 'ignore')
+        print u'输入关键字', keyword
+        for word in keyword:
+            print word
+            element.send_keys(word)
+        element.send_keys(Keys.ENTER)
     except NoSuchElementException:
         print u'没有找到搜索框'
     print u'正在查询该关键字'
@@ -94,7 +99,8 @@ def find_urls():
         clear_file()
         html = get_results(keyword)
         parse_html(html)
-        get_more_link()
+        for i in range(1, 16):
+            get_more_link()
     except Exception:
         print u'网络错误，请重试'
 
