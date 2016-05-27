@@ -34,8 +34,11 @@ def read_from_excel(start):
             print u'开始过滤第', str(int(i)+1), u'行的信息'
             if info[0]:
                 url = info[2]
-                print u'旺旺号',info[0]
-                filter_comment_info(url, info)
+                if url:
+                    print u'旺旺号',info[0]
+                    filter_comment_info(url, info)
+                else:
+                    print u'链接无效，跳过该链接'
         else:
             print u'该行无有效旺旺信息，跳过过滤'
 
