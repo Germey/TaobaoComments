@@ -47,7 +47,6 @@ def get_user_info(user, fail_time=0):
         return False
     except TimeoutException:
         print u'查询失败, 正在重试'
-        print u'请打开 http://www.taoyitu.com/ 输入验证码,即可迅速解决问题'
         fail_time = fail_time + 1
         if fail_time == 3:
             if config.CONSOLE_OUTPUT:
@@ -59,7 +58,6 @@ def get_user_info(user, fail_time=0):
         return False
     except NoSuchElementException:
         print u'查询星级失败, 正在重试'
-        print u'请打开 http://www.taoyitu.com/ 输入验证码,即可迅速解决问题'
         if fail_time >=2 :
             print u'请求超时, 正在切换代理, 继续重试'
             update_proxy_pool()
@@ -72,5 +70,7 @@ def get_user_info(user, fail_time=0):
         if fail_time == 5:
             if config.CONSOLE_OUTPUT:
                 print u'失败次数过多, 跳过此用户'
+                print u'请打开 http://www.taonienie.com/ 输入验证码,即可迅速解决问题'
+
             return False
         return get_user_info(user, fail_time)

@@ -8,7 +8,7 @@ SERVICE_ARGS = [
 ]
 
 # 星级查询网站
-STAR_INFO_URL = 'http://www.taoyitu.com/'
+STAR_INFO_URL = 'http://www.taonienie.com/'
 # 请求会话
 DRIVER = webdriver.PhantomJS(service_args=SERVICE_ARGS)
 
