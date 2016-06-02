@@ -33,7 +33,7 @@ def get_user_info(user, fail_time=0):
         )
 
         html = driver.page_source
-        time.sleep(1)
+        #time.sleep(1)
         pattern = re.compile('<span id="buyer_ratecount.*?src="(.*?)gif', re.S)
         result = re.search(pattern, html)
         print result.group(0)
@@ -60,12 +60,11 @@ def get_user_info(user, fail_time=0):
         print u'查询星级失败, 正在重试'
         if fail_time >=2 :
             print u'请求超时, 正在切换代理, 继续重试'
-            update_proxy_pool()
-            new_proxy_driver()
+            print u'请打开 http://www.taonienie.com/ 输入验证码,即可迅速解决问题'
         else:
             print u'请求超时,正在切换会话重试'
             new_driver()
-        time.sleep(3)
+        time.sleep(1)
         fail_time = fail_time + 1
         if fail_time == 5:
             if config.CONSOLE_OUTPUT:

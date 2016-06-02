@@ -70,7 +70,7 @@ def scrap(url, fail_time=0):
 def from_file():
     urls = get_urls()
     print u'获取到如下链接列表'
-    print urls
+    #print urls
     config.TOTAL_COUNT = len(urls)
     print u'共有', config.TOTAL_COUNT, u'个链接'
     count = int(get_count())
