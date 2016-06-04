@@ -10,7 +10,7 @@ PASSWORD = 'asd123'
 DISPATCHER_TEXT = '转账到支付宝'
 
 #读取文件路径
-NEED_READ_FILE = '../file/example_result.txt'
+NEED_READ_FILE = 'file/example_result.txt'
 
 #结果文件存放路径
-RESULT_FILR = '../file/alipay_result.txt'
+RESULT_FILR = 'file/alipay_result.txt'

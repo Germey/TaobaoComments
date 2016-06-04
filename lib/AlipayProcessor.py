@@ -41,7 +41,7 @@ document.body.appendChild(e);
 
 change_js = 'document.getElementById(\'__msg\').innerHTML = document.getElementById(\'ipt-search-key\').value'
 
-if __name__ == '__main__':
+def ExcuteAlipayProcessor():
     driver = Init()
     driver = LoginAndDispatch(driver)
     
