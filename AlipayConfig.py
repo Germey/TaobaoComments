@@ -14,3 +14,5 @@ NEED_READ_FILE = 'file/example_result.txt'
 
 #结果文件存放路径
 RESULT_FILR = 'file/alipay_result.txt'
+
+driver = None
