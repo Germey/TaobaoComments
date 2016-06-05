@@ -87,7 +87,7 @@ def ExcuteAlipayProcessor():
                     print result
                     result += '\n'
                     write_file = open(AlipayConfig.RESULT_FILR,'a')
-                    result = result.encode('gbk')
+                    result = result.encode('utf-8')
                     write_file.write(result)
                     write_file.close()
                 
@@ -99,7 +99,7 @@ def ExcuteAlipayProcessor():
         else:
             line += '\n'
             write_file = open(AlipayConfig.RESULT_FILR,'a')
-            line = line.decode('utf-8').encode('gbk')
+            line = line.decode('utf-8').encode('utf-8')
             write_file.write(line)
             write_file.close()
         
