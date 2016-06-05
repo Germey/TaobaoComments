@@ -74,9 +74,10 @@ def ExcuteAlipayProcessor():
                 sleep(1)
                 driver.execute_script(change_js)
                 page = driver.page_source
-                soup = BeautifulSoup(page)
+                soup = BeautifulSoup(page,'html.parser')
                 sleep(1)
                 msg_list = soup.select('#__msg')
+                 
                 result = msg_list[0].get_text()
                 #print result
                 if(result.isdigit()):
