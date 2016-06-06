@@ -19,6 +19,9 @@ def LoginAndDispatch(driver):
     login_psw_element = driver.find_element_by_css_selector('#password_rsainput')
     login_id_element.send_keys(AlipayConfig.USERNAME)
     login_psw_element.send_keys(AlipayConfig.PASSWORD)
+    str = raw_input(u'请输入ok：')
+    while (str != 'OK' and str != 'ok'):
+        str = raw_input(u'请输入ok：')
     sleep(2)
     login_psw_element.send_keys(Keys.RETURN)
     
