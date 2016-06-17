@@ -13,4 +13,7 @@ DISPATCHER_TEXT = '转账到支付宝'
 NEED_READ_FILE = 'file/example_result.txt'
 
 #结果文件存放路径
-RESULT_FILR = 'file/alipay_result.txt'
+RESULT_FILE = 'file/alipay_result.txt'
+
+#缓存文件存放
+TEMP_FILE = 'file/alipay_temp.txt'

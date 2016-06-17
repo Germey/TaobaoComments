@@ -19,6 +19,9 @@ def LoginAndDispatch(driver):
     login_psw_element = driver.find_element_by_css_selector('#password_rsainput')
     login_id_element.send_keys(AlipayConfig.USERNAME)
     login_psw_element.send_keys(AlipayConfig.PASSWORD)
+    str = raw_input(u'请输入ok：')
+    while (str != 'OK' and str != 'ok'):
+        str = raw_input(u'请输入ok：')
     sleep(2)
     login_psw_element.send_keys(Keys.RETURN)
     
@@ -47,7 +50,20 @@ def ExcuteAlipayProcessor():
     
     read_file = open(AlipayConfig.NEED_READ_FILE,'r')
     
+    try:
+        temp_file = open(AlipayConfig.TEMP_FILE,'r')
+        row = int(temp_file.readline())
+        col = int(temp_file.readline())
+        temp_file.close()
+    except Exception:
+        row = 0
+        col = 0
+    
+         
+    
     line = read_file.readline()
+    now_row = 1
+    now_col = 0
     
     sleep(2)
     
@@ -55,15 +71,22 @@ def ExcuteAlipayProcessor():
     sleep(1)
     
     while line:
+        if(now_row < row):
+            line = read_file.readline()
+            now_row += 1
+            continue
         pattern = re.compile(r'\d{11}')
         phone_number_list = re.findall(pattern, line)
         
         if phone_number_list:
             for phone_number in phone_number_list:
+                if(now_col < col):
+                    now_col += 1
+                    continue
                 sleep(1)
                 phone_input_element = driver.find_element_by_css_selector('#ipt-search-key')
                 phone_input_element.clear()
-                print phone_number
+                print phone_number,u'  row:',now_row,u'  col:',now_col
                 sleep(1)
                 phone_input_element.send_keys(phone_number)
                 print '-----------'
@@ -74,19 +97,26 @@ def ExcuteAlipayProcessor():
                 sleep(1)
                 driver.execute_script(change_js)
                 page = driver.page_source
-                soup = BeautifulSoup(page)
+                soup = BeautifulSoup(page,'html.parser')
                 sleep(1)
                 msg_list = soup.select('#__msg')
+                 
                 result = msg_list[0].get_text()
                 #print result
                 if(result.isdigit()):
                     driver.refresh()
                     driver.execute_script(init_js)
+                    now_col += 1
+                    temp_file = open(AlipayConfig.TEMP_FILE,'w')
+                    temp_file.write(str(now_row))
+                    temp_file.write('\n')
+                    temp_file.write(str(now_col))
+                    temp_file.close()
                     continue
                 else:
                     print result
                     result += '\n'
-                    write_file = open(AlipayConfig.RESULT_FILR,'a')
+                    write_file = open(AlipayConfig.RESULT_FILE,'a')
                     result = result.encode('utf-8')
                     write_file.write(result)
                     write_file.close()
@@ -95,15 +125,29 @@ def ExcuteAlipayProcessor():
                 driver.implicitly_wait(2)
                 driver.refresh()
                 driver.execute_script(init_js)
+                now_col += 1
+                temp_file = open(AlipayConfig.TEMP_FILE,'w')
+                temp_file.write(str(now_row))
+                temp_file.write('\n')
+                temp_file.write(str(now_col))
+                temp_file.close()
+                
+            now_col = 0
                 
         else:
             line += '\n'
-            write_file = open(AlipayConfig.RESULT_FILR,'a')
+            write_file = open(AlipayConfig.RESULT_FILE,'a')
             line = line.decode('utf-8').encode('utf-8')
             write_file.write(line)
             write_file.close()
+            temp_file = open(AlipayConfig.TEMP_FILE,'w')
+            temp_file.write(str(now_row))
+            temp_file.write('\n')
+            temp_file.write(str(now_col))
+            temp_file.close()
         
         line = read_file.readline()
+        now_row += 1
     
     read_file.close()
     
