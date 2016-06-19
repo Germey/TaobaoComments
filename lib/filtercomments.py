@@ -159,15 +159,15 @@ def is_comments_appear(driver, max_time=10):
     count = 1
     result = scroll_bottom_comments(driver)
     while not result:
-        result = scroll_bottom_comments(driver)
+        result = scroll_bottom_comments(driver, count)
         count = count + 1
         if count == max_time:
             return False
     return True
 
 
-def scroll_bottom_comments(driver):
-    js = "window.scrollTo(0,document.body.scrollHeight)"
+def scroll_bottom_comments(driver, count=0):
+    js = "window.scrollTo(0,document.body.scrollHeight-"+str(count*200)+")"
     driver.execute_script(js)
     time.sleep(2)
     try:
