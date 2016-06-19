@@ -156,11 +156,11 @@ def filter_comment_info(url, info):
 
 
 def is_comments_appear(driver, max_time=10):
-    count = 1
-    result = scroll_bottom_comments(driver)
+    count = 0
+    result = scroll_bottom_comments(driver, count)
     while not result:
-        result = scroll_bottom_comments(driver, count)
         count = count + 1
+        result = scroll_bottom_comments(driver, count)
         if count == max_time:
             return False
     return True
@@ -169,7 +169,7 @@ def is_comments_appear(driver, max_time=10):
 def scroll_bottom_comments(driver, count=0):
     js = "window.scrollTo(0,document.body.scrollHeight-"+str(count*200)+")"
     driver.execute_script(js)
-    time.sleep(2)
+    time.sleep(1)
     try:
         driver.find_element_by_css_selector('#J_TabBar li a')
     except NoSuchElementException:
